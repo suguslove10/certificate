@@ -20,8 +20,6 @@ services:
     build:
       context: ./certiRoute/backend
     container_name: certiRoute-backend
-    ports:
-      - "5000:5000"
     volumes:
       - ./certiRoute/backend:/app
       - /app/node_modules
