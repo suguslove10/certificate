@@ -41,14 +41,13 @@ import {
 } from '@mui/icons-material';
 
 import {
-  fetchCertificates,
+  getCertificates,
   generateCertificate,
   installCertificate,
   deleteCertificate,
-  downloadCertificate,
   clearInstallationResult
 } from '../store/slices/ssl';
-import { fetchSubdomains } from '../store/slices/subdomain';
+import { getSubdomains } from '../store/slices/subdomain';
 
 function SSLCertificates() {
   const dispatch = useDispatch();
@@ -73,8 +72,8 @@ function SSLCertificates() {
 
   useEffect(() => {
     if (isConfigured) {
-      dispatch(fetchCertificates());
-      dispatch(fetchSubdomains());
+      dispatch(getCertificates());
+      dispatch(getSubdomains());
     }
   }, [dispatch, isConfigured]);
 
@@ -139,8 +138,7 @@ function SSLCertificates() {
 
   const handleDownloadCertificate = async (certificate) => {
     try {
-      await dispatch(downloadCertificate(certificate.id)).unwrap();
-      enqueueSnackbar('Certificate downloaded successfully', { variant: 'success' });
+      enqueueSnackbar('Certificate download functionality is not yet implemented', { variant: 'info' });
     } catch (err) {
       enqueueSnackbar(err.error || 'Failed to download certificate', { variant: 'error' });
     }
@@ -167,7 +165,7 @@ function SSLCertificates() {
   };
 
   const handleRefresh = () => {
-    dispatch(fetchCertificates());
+    dispatch(getCertificates());
   };
 
   if (!isConfigured) {

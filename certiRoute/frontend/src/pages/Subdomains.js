@@ -38,9 +38,9 @@ import { Formik, Form, Field } from 'formik';
 
 import {
   createSubdomain,
-  fetchSubdomains,
+  getSubdomains,
   deleteSubdomain,
-  checkAwsDnsConfiguration
+  getHostedZones
 } from '../store/slices/subdomain';
 
 // Validation schema
@@ -70,8 +70,8 @@ function Subdomains() {
 
   useEffect(() => {
     if (isConfigured) {
-      dispatch(fetchSubdomains());
-      dispatch(checkAwsDnsConfiguration());
+      dispatch(getSubdomains());
+      dispatch(getHostedZones());
     }
   }, [dispatch, isConfigured]);
 
@@ -117,8 +117,8 @@ function Subdomains() {
   };
 
   const handleRefresh = () => {
-    dispatch(fetchSubdomains());
-    dispatch(checkAwsDnsConfiguration());
+    dispatch(getSubdomains());
+    dispatch(getHostedZones());
   };
 
   if (!isConfigured) {
