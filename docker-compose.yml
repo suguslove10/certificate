@@ -3,14 +3,14 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: ./frontend
+      context: ./certiRoute/frontend
     container_name: certiRoute-frontend
     ports:
       - "3000:3000"
     depends_on:
       - backend
     volumes:
-      - ./frontend:/app
+      - ./certiRoute/frontend:/app
       - /app/node_modules
     environment:
       - REACT_APP_API_URL=http://localhost:5000
@@ -18,12 +18,12 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ./certiRoute/backend
     container_name: certiRoute-backend
     ports:
       - "5000:5000"
     volumes:
-      - ./backend:/app
+      - ./certiRoute/backend:/app
       - /app/node_modules
       - certificate-data:/app/data
     environment:
@@ -35,7 +35,7 @@ services:
 
   nginx:
     build:
-      context: ./nginx
+      context: ./certiRoute/nginx
     container_name: certiRoute-nginx
     ports:
       - "80:80"
@@ -44,9 +44,9 @@ services:
       - frontend
       - backend
     volumes:
-      - ./nginx/conf:/etc/nginx/conf.d
-      - ./nginx/ssl:/etc/nginx/ssl
-      - ./nginx/logs:/var/log/nginx
+      - ./certiRoute/nginx/conf:/etc/nginx/conf.d
+      - ./certiRoute/nginx/ssl:/etc/nginx/ssl
+      - ./certiRoute/nginx/logs:/var/log/nginx
     restart: unless-stopped
 
 volumes:
